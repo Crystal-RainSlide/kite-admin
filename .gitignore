@@ -1,0 +1,8 @@
+Thumbs.db
+
+*.log
+
+data/attachment.json
+data/checking.json
+pages/checking.html
+

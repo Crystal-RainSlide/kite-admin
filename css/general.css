@@ -1,0 +1,166 @@
+:root {
+
+	--grey-50:  #FAFAFA;
+	--grey-100: #F5F5F5;
+	--grey-200: #EEEEEE;
+	--grey-300: #E0E0E0;
+	--grey-400: #BDBDBD;
+	--grey-500: #9E9E9E;
+	--grey-600: #757575;
+	--grey-700: #616161;
+	--grey-800: #424242;
+	--grey-900: #212121;
+	
+	--indigo-50:  #E8EAF6;
+	--indigo-100: #C5CAE9;
+	--indigo-200: #9FA8DA;
+	--indigo-300: #7986CB;
+	--indigo-400: #5C6BC0;
+	--indigo-500: #3F51B5;
+	--indigo-600: #3949AB;
+	--indigo-700: #303F9F;
+	--indigo-800: #283593;
+	--indigo-900: #1A237E;
+	--indigo-a100: #8C9EFF;
+	--indigo-a200: #536DFE;
+	--indigo-a400: #3D5AFE;
+	--indigo-a700: #304FFE;
+
+	--light-blue-50:  #E1F5FE;
+	--light-blue-100: #B3E5FC;
+	--light-blue-200: #81D4FA;
+	--light-blue-300: #4FC3F7;
+	--light-blue-400: #29B6F6;
+	--light-blue-500: #03A9F4;
+	--light-blue-600: #039BE5;
+	--light-blue-700: #0288D1;
+	--light-blue-800: #0277BD;
+	--light-blue-900: #01579B;
+	--light-blue-a100: #80D8FF;
+	--light-blue-a200: #40C4FF;
+	--light-blue-a400: #00B0FF;
+	--light-blue-a700: #0091EA;
+	
+	--shadow-2dp:
+		0 3px 1px -2px rgba(0, 0, 0, .2),
+		0 2px 2px 0 rgba(0, 0, 0, .14),
+		0 1px 5px 0 rgba(0, 0, 0, .12);
+	--shadow-4dp:
+		0 2px 4px -1px rgba(0, 0, 0, .2),
+		0 4px 5px  0 rgba(0, 0, 0, .14),
+		0 1px 10px 0 rgba(0, 0, 0, .12);
+	--shadow-8dp:
+		0 5px 5px -3px rgba(0, 0, 0, .2),
+		0 8px 10px 1px rgba(0, 0, 0, .14),
+		0 3px 14px 2px rgba(0, 0, 0, .12);
+}
+
+/* ---- */
+
+/* margin and padding */
+body,
+p, dl, dd, blockquote, figure, pre,
+h1, h2, h3, h4, h5, h6,
+listing, multicol, plaintext, xmp,
+ul, ol, menu, dir { margin: unset; }
+ul, ol, menu, dir { padding: unset; }
+
+/* font-size and font-weight of headings */
+h1, h2, h3, h4, h5, h6 {
+	font-size: unset;
+	font-weight: unset;
+}
+
+/* list-style-type of unordered lists */
+/* note that ordered lists (<ol>) still have list-style-type: decimal, but
+there is no padding-inline-start right now, set it yourself when needed. */
+ul { list-style-type: none; }
+
+/* border of <iframe> */
+iframe { border: unset; }
+
+/* font-family of form elements */
+input, select, button, optgroup { font: initial; }
+
+/* box-sizing of <textarea> */
+textarea { box-sizing: border-box; }
+
+/* ---- */
+
+:link:not(:hover):not(:focus) { text-decoration: none; }
+
+:link,
+:visited { color: var(--light-blue-700); }
+
+/* ---- */
+
+input, select, button {
+	padding: 1ex .5ch;
+	background-color: white;
+	border: 2px solid;
+	border-radius: 2px;
+	line-height: 1;
+	transition-property: background-color, border-color, box-shadow;
+	transition: 175ms ease-in-out;
+}
+
+input, select {
+	border-color:  var(--indigo-500);
+}
+
+button {
+	display: inline-block;
+	box-sizing: border-box;
+	padding: 1ex 2ch;
+	color: var(--indigo-500);
+	border-color: currentColor;
+	outline: none;
+}
+
+input:hover, select:hover, button:hover {
+	background-color: var(--light-blue-50);
+}
+
+input:focus, select:focus {
+	background-color: white;
+}
+input:hover, select:hover,
+input:focus, select:focus,
+input:active, select:active {
+	border-color: var(--indigo-700);
+}
+
+button:hover  { box-shadow: var(--shadow-2dp); }
+button:focus  {
+	background-color: var(--light-blue-100);
+	box-shadow: var(--shadow-4dp);
+}
+button:active {
+	background-color: var(--light-blue-200);
+	box-shadow: var(--shadow-8dp);
+}
+
+/* ---- */
+
+hr {
+	color: var(--grey-500);
+	border: none;
+	height: 1px;
+	background-color: currentColor;
+}
+
+/* ---- */
+
+.comment { color: var(--grey-700); }
+
+.text-center { text-align: center; }
+
+.full-width { width: 100%; }
+button.full-width { display: block; }
+
+.card {
+	padding: 1rem;
+	background-color: white;
+	border-radius: 2px;
+	box-shadow: var(--shadow-2dp);
+}

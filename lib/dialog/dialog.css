@@ -1,0 +1,26 @@
+/* Dialog without modal and centering */
+.dialog {
+	display: none;
+	flex-direction: column;
+	position: fixed;
+	top: 3rem;
+	left: 3rem;
+	min-width: 16rem;
+	min-height: 24rem;
+	max-width: 90vw;
+	max-height: 90vh;
+	background-color: white;
+	border-radius: 2px;
+	box-shadow: var(--shadow-8dp);
+}
+
+.dialog,
+.dialog-header,
+.dialog-main,
+.dialog-footer { padding: .5rem; }
+
+.dialog.open { display: flex; }
+.dialog-header { font-size: larger; }
+.dialog-main { flex-grow: 1; }
+.dialog-footer { text-align: end; }
+.dialog-close { color: #F44336; }

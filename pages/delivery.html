@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+
+<meta charset="UTF-8">
+<title>易取 - Kite 管理后台</title>
+<link rel="stylesheet" href="../css/general.css">
+<style>
+
+body {
+	padding: 1rem;
+}
+header {
+	padding: 1rem;
+	font-size: larger;
+}
+
+select.dataTable-selector {
+	padding: .125ex .5ch;
+}
+
+</style>
+<script src="../js/general.js"></script>
+
+<link rel="stylesheet" href="../lib/dialog/dialog.css">
+<script src="../lib/dialog/dialog.js"></script>
+
+<link rel="stylesheet" href="../lib/simple-datatables/dist/style.css">
+<script src="../lib/simple-datatables/dist/umd/simple-datatables.js"></script>
+
+</head>
+<body>
+
+<header>
+	<h1>易取</h1>
+</header>
+
+<main>
+	<div>未完成</div>
+	<section class="search" style="display: none;">
+		<input type="search">
+	</section>
+	<section class="table">
+		<table id="user-table">
+			<thead>
+				<tr><th>第一列</th><th>第二列</th><th>第三列</th></tr>
+			</thead>
+			<tbody></tbody>
+		</table>
+	</section>
+</main>
+
+<div id="user-dialog" class="dialog">
+	<div class="dialog-header">
+		<h2>快件信息</h2>
+	</div>
+	<div class="dialog-main">
+		
+	</div>
+	<div class="dialog-footer">
+		<button class="dialog-close">关闭</button>
+	</div>
+</div>
+
+<script>
+
+const deliveryTable = document.getElementById("delivery-table");
+const deliveryDialog = document.getElementById("delivery-dialog");
+
+// const dataTable = new simpleDatatables.DataTable(
+// 	document.getElementById("delivery-table"), {
+// 		labels: {
+// 			"placeholder": "搜索...",
+// 			"perPage": "每页条目数量：{select}",
+// 			"noRows": "暂无条目",
+// 			"info": "共 {rows} 个条目，目前显示第 {start} 到 {end} 个"
+// 		},
+// 		ajax: {
+// 			url: "",
+// 			load: xhr => {
+// 				// ...
+// 	    	}
+// 		}
+// 	}
+// );
+// dataTable.on('datatable.init',event => {
+// 	console.log(event);
+// 	dataTable.activeRows.forEach(
+// 		tr => tr.addEventListener(
+// 			"click", () => {
+// 				// ...
+// 			}
+// 		)
+// 	)
+// });
+</script>
+
+</body>
+</html>
