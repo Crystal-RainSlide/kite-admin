@@ -4,22 +4,8 @@
 
 <meta charset="UTF-8">
 <title>用户管理 - Kite 管理后台</title>
+
 <link rel="stylesheet" href="../css/general.css">
-<style>
-
-body {
-	padding: 1rem;
-}
-header {
-	padding: 1rem;
-	font-size: larger;
-}
-
-select.dataTable-selector {
-	padding: .125ex .5ch;
-}
-
-</style>
 <script src="../js/general.js"></script>
 
 <link rel="stylesheet" href="../lib/dialog/dialog.css">
@@ -27,6 +13,62 @@ select.dataTable-selector {
 
 <link rel="stylesheet" href="../lib/simple-datatables/dist/style.css">
 <script src="../lib/simple-datatables/dist/umd/simple-datatables.js"></script>
+<script src="../js/simple-datatables-helper.js"></script>
+
+<style>
+
+body {
+	padding: 1rem;
+}
+header {
+	padding: 1rem;
+	border-bottom: 2px solid var(--indigo-500);
+	font-size: 1.5em;
+}
+
+h2 {
+	margin-bottom: .5rem;
+	padding-bottom: .5rem;
+	border-bottom: 2px solid var(--light-blue-500);
+	font-size: 1.5em;
+}
+
+section {
+	padding-top: 1rem;
+}
+section:not(:first-of-type) {
+	border-top: 1px dashed var(--grey-500);
+}
+
+/* avatar */
+.avatar {
+	display: block;
+	width: 1em;
+	height: 1em;
+	margin: 0 auto;
+	transition: 25ms ease-out;
+	transition-property: width, height;
+}
+td:hover .avatar {
+	width: 64px;
+	height: 64px;
+}
+
+/* Simple-DataTables */
+
+/* padding and margin */
+select.dataTable-selector { padding: .125ex .5ch; }
+.dataTable-container { margin: .5rem 0 .25rem; }
+
+/* border */
+.dataTable-wrapper.no-footer .dataTable-container {
+	border: none;
+}
+.dataTable-table { border-collapse: collapse; }
+.dataTable-table th,
+.dataTable-table td { border: 1px solid #d9d9d9; }
+
+</style>
 
 </head>
 <body>
@@ -36,21 +78,23 @@ select.dataTable-selector {
 </header>
 
 <main>
-	<section class="search" style="display: none;">
-		<input type="search">
-	</section>
+
 	<section class="table">
 		<table id="user-table">
-			<thead>
+			<!-- <thead>
 				<tr><th>头像</th><th>ID</th><th>昵称</th><th>位置</th><th>语言</th></tr>
 			</thead>
-			<tbody></tbody>
+			<tbody></tbody> -->
 		</table>
 	</section>
+
 	<section class="find">
 		<h2>精确查找</h2>
+		<p>按照用户ID，精确查找用户。</p>
 		<div>未完成</div>
+		<!-- <input type="find"> -->
 	</section>
+
 </main>
 
 <div id="user-dialog" class="dialog">
@@ -69,6 +113,52 @@ select.dataTable-selector {
 
 const userTable = document.getElementById("user-table");
 const userDialog = document.getElementById("user-dialog");
+const objArray = simpleDatatables.helpers.objArray;
+
+const headingsMap = new Map([
+	[ "uid"         , "ID" ],
+	[ "nick_name"   , "昵称" ],
+	[ "avatar"      , "头像" ],
+	[ "is_disabled" , "状态" ],
+	[ "is_admin"    , "身份" ],
+	[ "country"     , "国家" ],
+	[ "province"    , "省份" ],
+	[ "city"        , "城市" ],
+	[ "location"    , "位置" ],
+	[ "language"    , "语言" ],
+	[ "create_time" , "创建时间" ],
+]);
+
+const userEntryProcessor = entry => {
+
+	if ( entry.hasOwnProperty("uid") ) {
+		entry.uid = `<span data-uid="${ entry.uid }">${ entry.uid }</span>`;
+	}
+
+	if ( entry.hasOwnProperty("avatar") ) {
+		entry.avatar =
+			`<img class="avatar" src="${ entry.avatar }" alt="头像">`;
+	}
+
+	if ( entry.hasOwnProperty("is_disabled") ) {
+		entry.is_disabled = entry.is_disabled ? "禁用" : "正常"
+	}
+	if ( entry.hasOwnProperty("is_admin") ) {
+		entry.is_admin = entry.is_admin ? "管理员" : "用户"
+	}
+
+	const keys = [ "country", "province", "city" ];
+
+	if (
+		keys.every( key => entry.hasOwnProperty(key) )
+	) {
+		entry.location = keys.map(key => entry[key]).join(" ");
+		keys.forEach( key => delete entry[key] );
+	}
+
+	return entry;
+
+};
 
 const dataTable = new simpleDatatables.DataTable(
 	document.getElementById("user-table"), {
@@ -81,19 +171,47 @@ const dataTable = new simpleDatatables.DataTable(
 		ajax: {
 			url: "../data/user.json",
 			load: xhr => {
-				// ...
+
+				const data = objArray.parse(
+					responseProcesser.json(xhr.responseText).map(userEntryProcessor)
+				);
+
+				data.headings = data.headings.map(
+					heading => headingsMap.get(heading) || heading
+				);
+
+				return data;
+
 			}
 		}
 	}
 );
-dataTable.on('datatable.init',() => {
+
+dataTable.on('datatable.update',() => {
+
+	// dataTable.columns()
+
 	dataTable.activeRows.forEach(
 		tr => tr.addEventListener(
 			"click", () => {
-				
+				const uidElement = tr.querySelector('[data-uid]');
+				if (
+					uidElement &&
+					uidElement.dataset.uid &&
+					Number(uidElement.dataset.uid) !== NaN
+				) {
+					const uid = Number(uidElement.dataset.uid);
+					// fetch(
+					// 	"/user/" + Number(uid), getSafeRequest({
+					// 		method: "GET"
+					// 	})
+					// ).then()
+					userDialog.show()
+					}
 			}
 		)
-	)
+	);
+
 });
 </script>
 

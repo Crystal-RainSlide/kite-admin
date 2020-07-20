@@ -55,21 +55,23 @@ footer:hover ~ .kite,
 .kite:hover { fill: var(--grey-600); }
 
 main:hover ~ .kite,
-.kite > .kite-path:hover  { fill: var(--light-blue-300); }
+.kite > .kite-path:hover { fill: var(--light-blue-300); }
 
 main:active ~ .kite,
+main:focus-within ~ .kite,
 .kite > .kite-path:active { fill: var(--light-blue-500); }
 
 /* ---- */
 
 header, footer {
-	--_: var(--white_50);
-	box-shadow: 0 0 1em 1em var(--_);
-	background-color: var(--_);
+	--color: var(--white_50);
+	--shadow: 0 0 1em 1em;
+	box-shadow: var(--shadow) var(--color);
+	background-color: var(--color);
 }
 header {
-	--_: var(--white_25);
-	box-shadow: 0 0 12em 12em var(--_);
+	--color: var(--white_25);
+	--shadow: 0 0 12em 12em;
 }
 
 h1 { font-size: 2em; }

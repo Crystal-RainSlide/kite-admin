@@ -92,7 +92,7 @@ main > iframe {
 				</ul>
 			</details>
 		</li> -->
-		<li><a href="?page=易取">易取</a></li>
+		<li><a href="?page=delivery">易取</a></li>
 		<!-- <li><a href="?page=checking">返校码</a></li> -->
 	</ul>
 </aside>
@@ -109,34 +109,38 @@ main > iframe {
 
 const iframe = document.getElementById("iframe");
 
-const navigate = page => !/[?#&=]/.test(page)
-	? iframe.setAttribute(
-		"src", `./pages/${ page || "main" }.html`
-	) : false;
-const navigateByParams = params => {
-	const page = params.get("page");
-	return page ? navigate(page) : false;
-};
-const navigateBySearch = search => navigateByParams(
-	new URLSearchParams(search)
-);
-const navigateByUrl = url => navigateByParams(
-	url.searchParams
-);
-const navigateByUrlStr = urlStr => navigateByParams(
-	new URL(urlStr).searchParams
+const navigate = Object.assign(
+
+	page => {
+		if ( !/[?#&=]/.test(page) ) {
+			iframe.setAttribute(
+				"src", `./pages/${ page }.html`
+			);
+			history.pushState({}, "", "?page=" + page );
+			return true;
+		} else {
+			return false;
+		}
+	}, {
+		byParams: params => {
+			const page = params.get("page");
+			return page ? navigate(page) : false;
+		},
+		bySearch : search => navigate.byParams( new URLSearchParams(search) ),
+		byUrl    :    url => navigate.byParams( url.searchParams ),
+		byUrlStr : urlStr => navigate.byParams( new URL(urlStr).searchParams )
+	}
+
 );
 
-navigateBySearch(location.search);
+navigate.bySearch(location.search);
 
 document.querySelectorAll('a[href^="?page="]').forEach(
 	link => link.addEventListener(
 		"click", event => {
-				console.log(navigateByUrl(event.target.href));
-			if ( navigateByUrl(event.target.href) !== false ) {
-				event.preventDefault();
-				history.pushState({}, "", event.target.href);
-			}
+			event.preventDefault();
+			const url = event.target.href;
+			navigate.byUrlStr(url) === false && location.assign(url);
 		}
 	)
 );
