@@ -1,0 +1,23 @@
+body {
+	padding: 1rem;
+}
+
+header {
+	padding: 1rem;
+	border-bottom: 2px solid var(--indigo-500);
+	font-size: 1.5rem;
+}
+
+h2 {
+	margin-bottom: .5rem;
+	padding-bottom: .5rem;
+	border-bottom: 2px solid var(--light-blue-500);
+	font-size: 1.5rem;
+}
+
+section {
+	padding-top: 1rem;
+}
+section:not(:first-of-type) {
+	border-top: 1px dashed var(--grey-500);
+}

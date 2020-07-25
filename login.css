@@ -1,0 +1,87 @@
+
+html {
+	display: flex;
+	height: 100%;
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	box-sizing: border-box;
+	max-width: 48rem;
+	margin: auto;
+	padding: .5rem 1rem;
+	background-color: white;
+	background-image: url(./images/login-background.svg);
+	background-repeat: no-repeat;
+	background-size: 100%;
+}
+
+body > * {
+	max-width: 100%;
+	margin: .5rem 0;
+}
+
+body {
+	--white_50: rgba(255, 255, 255, .5);
+	--white_25: rgba(255, 255, 255, .25);
+}
+
+/* ---- */
+
+.kite {
+	position: absolute;
+	z-index: -1;
+	top: 0;
+	right: 0;
+	margin: 0;
+	filter: drop-shadow(0 0 16px var(--white_25));
+}
+
+.kite,
+.kite > .kite-path { transition: fill 225ms ease-in-out 25ms; }
+
+/* .kite { fill: var(--grey-400); } */
+
+header:hover ~ .kite,
+footer:hover ~ .kite,
+.kite:hover { fill: var(--grey-600); }
+
+main:hover ~ .kite,
+.kite > .kite-path:hover { fill: var(--light-blue-300); }
+
+main:active ~ .kite,
+main:focus-within ~ .kite,
+.kite > .kite-path:active { fill: var(--light-blue-500); }
+
+/* ---- */
+
+header, footer {
+	--color: var(--white_50);
+	--shadow: 0 0 1em 1em;
+	box-shadow: var(--shadow) var(--color);
+	background-color: var(--color);
+}
+header {
+	--color: var(--white_25);
+	--shadow: 0 0 12em 12em;
+}
+
+h1 { font-size: 2em; }
+
+#login.card:hover {
+	box-shadow: var(--shadow-4dp);
+}
+
+#login > label,
+#login > input { display: block; }
+
+#login > label { margin-bottom: .5rem; }
+#login > input { margin-bottom: .75rem; }
+#login > button { margin-top: .75rem; }
+
+#login > hr { transition: color 225ms ease-in-out; }
+#login       > hr { color: var(--grey-200); }
+#login:hover > hr { color: var(--grey-400); }

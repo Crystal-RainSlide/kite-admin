@@ -1,0 +1,9 @@
+/* padding and margin */
+select.dataTable-selector { padding: .125ex .5ch; }
+.dataTable-container { margin: .5rem 0 .25rem; }
+
+/* border */
+.dataTable-wrapper.no-footer .dataTable-container { border: none; }
+.dataTable-table { border-collapse: collapse; }
+.dataTable-table th,
+.dataTable-table td { border: 1px solid #d9d9d9; }

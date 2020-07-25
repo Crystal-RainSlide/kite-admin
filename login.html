@@ -3,95 +3,12 @@
 <head>
 
 <meta charset="UTF-8">
-<title>登录 - Kite 管理后台</title>
+
+<title>登录 - 上应小风筝管理后台</title>
+
 <link rel="stylesheet" href="./css/general.css">
-<style>
+<link rel="stylesheet" href="./login.css">
 
-html {
-	display: flex;
-	height: 100%;
-}
-
-body {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	box-sizing: border-box;
-	max-width: 48rem;
-	margin: auto;
-	padding: .5rem 1rem;
-	background-color: var(--grey-200);
-	background-image: url(./images/login-background.svg);
-}
-body > * {
-	max-width: 100%;
-	margin: .5rem 0;
-}
-
-body {
-	--white_50: rgba(255, 255, 255, .5);
-	--white_25: rgba(255, 255, 255, .25);
-}
-
-/* ---- */
-
-.kite {
-	position: absolute;
-	z-index: -1;
-	top: 0;
-	right: 0;
-	margin: 0;
-	filter: drop-shadow(0 0 16px var(--white_25));
-}
-
-.kite,
-.kite > .kite-path { transition: fill 225ms ease-in-out; }
-
-/* .kite { fill: var(--grey-400); } */
-
-header:hover ~ .kite,
-footer:hover ~ .kite,
-.kite:hover { fill: var(--grey-600); }
-
-main:hover ~ .kite,
-.kite > .kite-path:hover { fill: var(--light-blue-300); }
-
-main:active ~ .kite,
-main:focus-within ~ .kite,
-.kite > .kite-path:active { fill: var(--light-blue-500); }
-
-/* ---- */
-
-header, footer {
-	--color: var(--white_50);
-	--shadow: 0 0 1em 1em;
-	box-shadow: var(--shadow) var(--color);
-	background-color: var(--color);
-}
-header {
-	--color: var(--white_25);
-	--shadow: 0 0 12em 12em;
-}
-
-h1 { font-size: 2em; }
-
-#login.card:hover {
-	box-shadow: var(--shadow-4dp);
-}
-
-#login > label,
-#login > input { display: block; }
-
-#login > label { margin-bottom: .5rem; }
-#login > input { margin-bottom: .75rem; }
-#login > button { margin-top: .75rem; }
-
-#login > hr { transition: color 225ms ease-in-out; }
-#login       > hr { color: var(--grey-200); }
-#login:hover > hr { color: var(--grey-400); }
-
-</style>
 <script src="./js/general.js"></script>
 
 </head>
@@ -123,7 +40,7 @@ h1 { font-size: 2em; }
 </main>
 
 <footer class="text-center"> <!-- 把 span 改成链接？ -->
-	<div><span>Kite 管理后台</span> | <span>上应大易班</span> | <time datetime="2020">2020</time></div>
+	<div><span>上应小风筝管理后台</span> | <span>上应大易班</span> | <time datetime="2020">2020</time></div>
 	<p class="comment">如果需要注册，请联系管理人员。</p>
 </footer>
 
@@ -131,53 +48,7 @@ h1 { font-size: 2em; }
 	<path class="kite-path" d="M448 64l-320 64-64 320 320-64 64-320zm-40 24L256 240 154.667 138.667C239.11 121.777 323.555 104.888 408 88zm16 16l-50.667 253.333L272 256l152-152zm-285.333 50.667L240 256 88 408c16.888-84.445 33.777-168.89 50.667-253.333zM256 272l101.333 101.333L104 424l152-152z"/>
 </svg>
 
-<script>
-
-const loginForm = this.login || window.login;
-
-loginForm.addEventListener(
-	"submit", event => {
-
-		// event.stopImmediatePropagation();
-		event.preventDefault();
-
-		fetch(
-			"/session", getSafeRequest({
-				method: "POST",
-				redirect: "error",
-				headers: { "Content-Type" : "application/x-www-form-urlencoded" },
-				body: new URLSearchParams( new FormData(loginForm) ).toString()
-			})
-		).then(
-			response => response.json()
-		).then(
-			obj => {
-				switch (obj.code) {
-
-					case 0:
-						if (obj.data && obj.data.token) {
-							localStorage.setItem("token", obj.data.token);
-							location.assign("./admin.html");
-						} else {
-							throw new Error("登录成功，但服务器未返回 token");
-						}
-						break;
-
-					case 5:
-						alert("登录失败，凭据无效或找不到用户");
-						break;
-				
-					// default:
-					// 	break;
-
-				}
-			}
-		).catch(logError);
-
-	}
-);
-
-</script>
+<script src="./login.js"></script>
 
 </body>
 </html>
