@@ -1,0 +1,15 @@
+{
+	"code": 0,
+	"data": [
+		{
+			"id": 3,
+			"uid": null,
+			"studentId": "1000000001",
+			"name": "测试姓名",
+			"approvedTime": "2020-07-16T02:20:02.744042",
+			"college": "电气",
+			"major": "自动化",
+			"certStatus": null
+		}
+	]
+}
